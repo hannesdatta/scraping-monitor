@@ -41,8 +41,12 @@ the function checks whether the scraper has pushed data to S3 today, and that th
 
 __Configuring triggers__
 
+Here: task configured to occur daily at 11.55am.
+
 ![Screenshot to configure triggers](/doc/taskscheduler-triggers.png)
  
  __Configuring actions__
+
+Here: run.bat is called, which opens Anaconda prompt and runs the script `monitor.py`. Remember to set working directory to the same path as the monitoring scripts.
 
 ![Screenshot to configure actions](/doc/taskscheduler-actions.png)
