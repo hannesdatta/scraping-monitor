@@ -30,3 +30,19 @@ For more information on setting environment variables, see https://github.com/Ro
 - The current implementation connects to Amazon S3, scans the directory of the `uvt-netflix` bucket (directory: `raw/csv`),
 and returns TRUE if at least one of the available files is stamped with today's date, and larger than 10000 bytes. In other words,
 the function checks whether the scraper has pushed data to S3 today, and that the data is not empty.
+
+## Screenshots
+
+### Pushover
+
+![Screenshot from Pushover.net](/doc/pushover.png)
+ 
+### Windows Task Scheduler
+
+__Configuring triggers__
+
+![Screenshot to configure triggers](/doc/taskscheduler-triggers.png)
+ 
+ __Configuring actions__
+
+![Screenshot to configure actions](/doc/taskscheduler-actions.png)
