@@ -1,4 +1,4 @@
-# Health Monitor
+# Monitor the health of your online data collections via scraping and APIs
 
 ## Purpose
 Monitor the availability / recency of one's data scraping architecture.
