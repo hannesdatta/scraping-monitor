@@ -19,7 +19,7 @@ def send_message(msg, sound = 'pushover'):
 def get_all_s3_objects(s3, **base_kwargs):
     continuation_token = None
     while True:
-        list_kwargs = dict(MaxKeys=1000, **base_kwargs)
+        list_kwargs = dict(MaxKeys=10000, **base_kwargs)
         if continuation_token:
             list_kwargs['ContinuationToken'] = continuation_token
         response = s3.list_objects_v2(**list_kwargs)
@@ -74,13 +74,16 @@ def monitoring_message():
     health1=health_netflix()
     health2=health_worldbrowser()
     health3=health_newreleases()
+    overall_health = health1==True & health2 == True & health3 == True
+    
     msg = []
-    msg.append('Monitoring message')
+    if (overall_health==True): msg.append('Monitor: OK')
+    if (overall_health==False): msg.append('Monitor: Critical issues!')
     msg.append('Netflix: ' + statusmsg(health1))
     msg.append('Everynoise worldbrowser: ' + statusmsg(health2))
     msg.append('Everynoise new releases: ' + statusmsg(health3))
     sound = 'magic'
-    if (health1==False|health2==False|health3==False): sound = 'siren'
+    if (overall_health==False): sound = 'siren'
     send_message('\n'.join(msg), sound=sound)
 
 monitoring_message()
