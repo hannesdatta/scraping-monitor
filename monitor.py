@@ -63,11 +63,11 @@ def health_netflix():
              min_filesize=100000, min_files=3))
 
 def health_worldbrowser():
-    return(check_s3(bucket='uvt-streaming-data', directory='everynoise/worldbrowser/',
+    return(check_s3(bucket='uvt-data-music-streaming', directory='everynoise/raw/worldbrowser/',
              min_filesize=4000000, min_files=2))
 
 def health_newreleases():
-    return(check_s3(bucket='uvt-streaming-data', directory='everynoise/new-releases/',
+    return(check_s3(bucket='uvt-data-music-streaming', directory='everynoise/raw/new-releases/',
              min_filesize=200*1E6, min_files=1, max_recency=7)) # larger than 200 MB
              
 def health_vod_users():
@@ -75,17 +75,16 @@ def health_vod_users():
              min_filesize=1E3, min_files=22, max_recency=1)) 
 
 def monitoring_message():
-    health1=health_netflix()
+    #health1=health_netflix()
     health2=health_worldbrowser()
     health3=health_newreleases()
     health4=health_vod_users()
     
-    overall_health = health1==True & health2 == True & health3 == True & health4 == True
+    overall_health = health2 == True & health3 == True & health4 == True
     
     msg = []
     if (overall_health==True): msg.append('Monitor: OK')
     if (overall_health==False): msg.append('Monitor: Critical issues!')
-    msg.append('Netflix: ' + statusmsg(health1))
     msg.append('Everynoise worldbrowser: ' + statusmsg(health2))
     msg.append('Everynoise new releases: ' + statusmsg(health3))
     msg.append('VOD users: ' + statusmsg(health4))
